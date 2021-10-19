@@ -21,20 +21,17 @@
     <Button
         android:id="@+id/btnSubtract"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Subtract" />
+        android:layout_height="wrap_content"/>
 
     <Button
         android:id="@+id/btnMultiply"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Multiply" />
+        android:layout_height="wrap_content"/>
 
     <Button
         android:id="@+id/btnDivide"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Divide" />
+        android:layout_height="wrap_content"/>
 
 
 </LinearLayout>
