@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Calculator">
         <activity
-            android:name=".CalculateResult"
+            android:name=".CalculateResultActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

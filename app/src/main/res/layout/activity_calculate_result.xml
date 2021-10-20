@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CalculateResult">
+    tools:context=".CalculateResultActivity">
 
+    <!-- button to perform selected operation from the MainActivity -->
     <Button
         android:id="@+id/performCalculation"
         android:layout_marginTop="200dp"

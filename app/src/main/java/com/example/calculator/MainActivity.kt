@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import com.example.calculator.CalculatorOperations.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -11,57 +12,57 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Initialising Intent
-        val intent = Intent(this, CalculateResult::class.java)
+        val intent = Intent(this, CalculateResultActivity::class.java)
 
         // fetching button from activity_main.xml
         val btnAdd = findViewById<Button>(R.id.btnAdd)
         // set text on button programatically
-        btnAdd.text = CalculatorOperations.ADDITION.toString()
+        btnAdd.text = ADDITION.toString()
         // add functionality for clicking the button
         btnAdd.setOnClickListener {
             startActivityForSelectedOperation(
                 intent,
-                CalculateResult.OPERATION_NAME,
-                CalculatorOperations.ADDITION.toString()
+                OPERATION_NAME,
+                ADDITION.operation
             )
         }
 
         // fetching button from activity_main.xml
         val btnSubtract = findViewById<Button>(R.id.btnSubtract)
         // set text on button programatically
-        btnSubtract.text = CalculatorOperations.SUBTRACTION.toString()
+        btnSubtract.text = SUBTRACTION.toString()
         // add functionality for clicking the button
         btnSubtract.setOnClickListener {
             startActivityForSelectedOperation(
                 intent,
-                CalculateResult.OPERATION_NAME,
-                CalculatorOperations.SUBTRACTION.toString()
+                OPERATION_NAME,
+                SUBTRACTION.operation
             )
         }
 
         // fetching button from activity_main.xml
         val btnMultiply = findViewById<Button>(R.id.btnMultiply)
         // set text on button programatically
-        btnMultiply.text = CalculatorOperations.MULTIPLICATION.toString()
+        btnMultiply.text = MULTIPLICATION.toString()
         // add functionality for clicking the button
         btnMultiply.setOnClickListener {
             startActivityForSelectedOperation(
                 intent,
-                CalculateResult.OPERATION_NAME,
-                CalculatorOperations.MULTIPLICATION.toString()
+                OPERATION_NAME,
+                MULTIPLICATION.operation
             )
         }
 
         // fetching button from activity_main.xml
         val btnDivide = findViewById<Button>(R.id.btnDivide)
         // set text on button programatically
-        btnDivide.text = CalculatorOperations.DIVISION.toString()
+        btnDivide.text = DIVISION.toString()
         // add functionality for clicking the button
         btnDivide.setOnClickListener {
             startActivityForSelectedOperation(
                 intent,
-                CalculateResult.OPERATION_NAME,
-                CalculatorOperations.DIVISION.toString()
+                OPERATION_NAME,
+                DIVISION.operation
             )
         }
 
