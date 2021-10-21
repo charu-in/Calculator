@@ -6,9 +6,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import com.example.calculator.CalculatorOperations.*
-import java.lang.RuntimeException
 
-// Activity to input 2 numbers and perform calculation upon clicking a button
+// Activity to input two numbers and perform calculation upon clicking a button
 class CalculateResultActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,16 +35,17 @@ class CalculateResultActivity : AppCompatActivity() {
     // function to set the button text as to which operation has to be performed
     private inline fun getBtnText(operation: String) = "PERFORM $operation"
 
-    // function to calculate the final result based on operation selected
-    // takes 3 arguments - operation, firstNumber, secondNumber
-    // default values for two numbers given as 0
+    /*  function to calculate the final result based on operation selected
+        takes three arguments - operation, firstNumber, secondNumber
+        default values for two numbers given as zero
+    */
     private fun getCalculatedResult(
         operation: String,
         firstNumber: Int = 0,
         secondNumber: Int = 0
     ): String {
 
-        // variable to store the final result value
+        // variable to store the final result value initialized by zero
         var resultValue = 0
 
         // when block to perform the specified operation
