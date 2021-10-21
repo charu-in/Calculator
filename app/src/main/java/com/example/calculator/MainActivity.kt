@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import com.example.calculator.CalculatorOperations.*
 
+// Activity consists of 4 buttons to perform 4 different types of arithmetic operations (Addition, Subtraction, Multiplication, and Division)
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
