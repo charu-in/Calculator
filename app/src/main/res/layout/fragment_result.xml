@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CalculateResultActivity">
+    tools:context=".MainActivity">
 
     <!-- Enter first Number for operation to be performed -->
     <LinearLayout
@@ -22,10 +22,10 @@
 
         <EditText
             android:id="@+id/firstNumber"
-            android:inputType="number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="100dp" />
+            android:width="100dp"
+            android:inputType="number" />
     </LinearLayout>
 
     <!-- Enter second Number for operation to be performed -->
@@ -65,6 +65,7 @@
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="50dp" />
 
+        <!-- display the result in TextView -->
         <TextView
             android:id="@+id/displayResult"
             android:layout_width="match_parent"
