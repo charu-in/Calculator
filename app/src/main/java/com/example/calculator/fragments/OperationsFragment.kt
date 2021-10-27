@@ -9,6 +9,7 @@ import android.widget.Button
 import com.example.calculator.CalculatorOperations.*
 import com.example.calculator.OPERATION_NAME
 import com.example.calculator.R
+import com.example.calculator.isDualPaneActivity
 
 // Fragment to display the available operations for calculator app (addition, subtraction, multiplication, and division)
 class OperationsFragment : Fragment(R.layout.fragment_operations), View.OnClickListener {
@@ -88,19 +89,19 @@ class OperationsFragment : Fragment(R.layout.fragment_operations), View.OnClickL
         bundle.putString(OPERATION_NAME, btnText)
 
         // making a fragment instance of a new fragment called ResultFragment
-        val fragment = ResultFragment()
-
-        // setting the arguments of new fragment to current bundle that holds the name of operation to be performed
-        fragment.arguments = bundle
+        val fragment = ResultFragment().apply {
+            arguments = bundle      // setting the arguments of new fragment to current bundle that holds the name of operation to be performed
+        }
 
         // use apply operator for fragmentTransaction
         fragmentManager?.beginTransaction()?.apply {
-            this.replace(
-                R.id.mainFragmentContainer,
+            replace(
+                // check if dual panes are involved for tab view
+                if (isDualPaneActivity) R.id.calculateFromInput else R.id.mainFragmentContainer,
                 fragment
             )      // view this fragment in the fragment container on the activity
-            this.addToBackStack("operationsFragment")       // add fragment to back stack when back button is pressed on the device
-            this.commit()
+            if(!isDualPaneActivity) addToBackStack("operationsFragment")       // add fragment to back stack when back button is pressed on the device
+            commit()
         }
     }
 }
