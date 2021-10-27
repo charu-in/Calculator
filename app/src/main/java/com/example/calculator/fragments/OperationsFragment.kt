@@ -19,22 +19,7 @@ class OperationsFragment : Fragment(R.layout.fragment_operations), View.OnClickL
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_operations, container, false)
-
-        // fetching button from activity_main.xml and setting the text for addition operation
-        view.findViewById<Button>(R.id.btnAdd).text = ADDITION.toString()
-
-        // fetching button from activity_main.xml and setting the text for subtraction operation
-        view.findViewById<Button>(R.id.btnSubtract).text = SUBTRACTION.toString()
-
-        // fetching button from activity_main.xml and setting the text for multiplication operation
-        view.findViewById<Button>(R.id.btnMultiply).text = MULTIPLICATION.toString()
-
-        // fetching button from activity_main.xml and setting the text for division operation
-        view.findViewById<Button>(R.id.btnDivide).text = DIVISION.toString()
-
-        // rendering the fragment view
-        return view
+        return inflater.inflate(R.layout.fragment_operations, container, false)
     }
 
     // setting functionality of views
@@ -59,16 +44,16 @@ class OperationsFragment : Fragment(R.layout.fragment_operations), View.OnClickL
 
         // when block to navigate to next activity according to the operation selected
         when (btnOperation.id) {  // button id is passed as a parameter to check for operation selected
-            R.id.btnAdd -> startActivityForSelectedOperation(
+            R.id.btnAdd -> viewFragmentForSelectedOperation(
                 ADDITION.operation
             )
-            R.id.btnSubtract -> startActivityForSelectedOperation(
+            R.id.btnSubtract -> viewFragmentForSelectedOperation(
                 SUBTRACTION.operation
             )
-            R.id.btnMultiply -> startActivityForSelectedOperation(
+            R.id.btnMultiply -> viewFragmentForSelectedOperation(
                 MULTIPLICATION.operation
             )
-            R.id.btnDivide -> startActivityForSelectedOperation(
+            R.id.btnDivide -> viewFragmentForSelectedOperation(
                 DIVISION.operation
             )
         }
@@ -78,7 +63,7 @@ class OperationsFragment : Fragment(R.layout.fragment_operations), View.OnClickL
      * helper function to start next activity and modify content on the basis of selected operation
      * startActivityForSelectedOperation function takes three arguments - intent, operationToBePerformed, and btnText
      */
-    private fun startActivityForSelectedOperation(
+    private fun viewFragmentForSelectedOperation(
         btnText: String
     ) {
         // initialise a bundle
@@ -97,9 +82,8 @@ class OperationsFragment : Fragment(R.layout.fragment_operations), View.OnClickL
         fragmentManager?.beginTransaction()?.apply {
             this.replace(
                 R.id.mainFragmentContainer,
-                fragment
-            )      // view this fragment in the fragment container on the activity
-            this.addToBackStack("operationsFragment")       // add fragment to back stack when back button is pressed on the device
+                fragment        // view this fragment in the fragment container on the activity
+            )
             this.commit()
         }
     }

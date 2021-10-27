@@ -11,30 +11,34 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select Operation" />
+        android:text="@string/select_operation" />
 
     <!-- button to perform addition -->
     <Button
         android:id="@+id/btnAdd"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/addition" />
 
     <!-- button to perform subtraction -->
     <Button
         android:id="@+id/btnSubtract"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/subtraction" />
 
     <!-- button to perform multiplication -->
     <Button
         android:id="@+id/btnMultiply"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/multiplication" />
 
     <!-- button to perform division -->
     <Button
         android:id="@+id/btnDivide"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/division" />
 
 </LinearLayout>
