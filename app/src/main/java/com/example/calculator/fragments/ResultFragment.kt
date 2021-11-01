@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.navigation.fragment.navArgs
 import com.example.calculator.CalculatorOperations
 import com.example.calculator.OPERATION_NAME
 import com.example.calculator.R
@@ -19,6 +20,9 @@ import com.example.calculator.R
  */
 class ResultFragment : Fragment(R.layout.fragment_result) {
 
+    // initialize arguments to be received from OperationsFragment
+    val args: ResultFragmentArgs by navArgs()
+
     // setting the view of ResultFragment
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +33,7 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
 
         // set the text of button in accordance with value of OPERATION_NAME value from bundle
         view.findViewById<Button>(R.id.performCalculation).text =
-            "PERFORM " + this.arguments?.get(OPERATION_NAME).toString()
+            "PERFORM " + args.operationSelected
 
         // rendering the fragment view
         return view
@@ -48,7 +52,7 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
             // set result on a TextView of this fragment
             view.findViewById<TextView>(R.id.displayResult).text =
                 getCalculatedResult(
-                    this.arguments?.get(OPERATION_NAME).toString(),
+                    args.operationSelected,
                     firstNumber,
                     secondNumber
                 )

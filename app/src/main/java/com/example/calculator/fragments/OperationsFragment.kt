@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.calculator.CalculatorOperations.*
 import com.example.calculator.OPERATION_NAME
 import com.example.calculator.R
@@ -13,6 +15,9 @@ import com.example.calculator.isDualPaneActivity
 
 // Fragment to display the available operations for calculator app (addition, subtraction, multiplication, and division)
 class OperationsFragment : Fragment(R.layout.fragment_operations), View.OnClickListener {
+
+    // initialize NavController
+    lateinit var navController: NavController
 
     // setting the view of OperationFragment
     override fun onCreateView(
@@ -41,6 +46,7 @@ class OperationsFragment : Fragment(R.layout.fragment_operations), View.OnClickL
     // setting functionality of views
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
 
         // on-click functionality for clicking the add button
         view.findViewById<Button>(R.id.btnAdd).setOnClickListener(this)
@@ -58,26 +64,27 @@ class OperationsFragment : Fragment(R.layout.fragment_operations), View.OnClickL
     // overriding onClick method to provide functionality for all four buttons at once
     override fun onClick(btnOperation: View) {
 
-        // when block to navigate to next activity according to the operation selected
-        when (btnOperation.id) {  // button id is passed as a parameter to check for operation selected
-            R.id.btnAdd -> startActivityForSelectedOperation(
+        // when block to get the operation selected
+        val operationSelected = when (btnOperation.id) {  // button id is passed as a parameter to check for operation selected
+            R.id.btnAdd ->
                 ADDITION.operation
-            )
-            R.id.btnSubtract -> startActivityForSelectedOperation(
+            R.id.btnSubtract ->
                 SUBTRACTION.operation
-            )
-            R.id.btnMultiply -> startActivityForSelectedOperation(
+            R.id.btnMultiply ->
                 MULTIPLICATION.operation
-            )
-            R.id.btnDivide -> startActivityForSelectedOperation(
+            R.id.btnDivide ->
                 DIVISION.operation
-            )
+            else -> "None"
         }
+
+        // pass the operation name as an argument to the action on navigation to ResultFragment
+        val action = OperationsFragmentDirections.actionOperationsFragmentToResultFragment(operationSelected)
+        navController?.navigate(action)
     }
 
     /**
      * helper function to start next activity and modify content on the basis of selected operation
-     * startActivityForSelectedOperation function takes three arguments - intent, operationToBePerformed, and btnText
+     * startActivityForSelectedOperation function takes one arguments -  btnText
      */
     private fun startActivityForSelectedOperation(
         btnText: String

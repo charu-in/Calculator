@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/calculator_nav_graph"
+    app:startDestination="@id/operationsFragment">
+
+
+    <fragment
+        android:id="@+id/operationsFragment"
+        android:name="com.example.calculator.fragments.OperationsFragment"
+        android:label="OperationsFragment"
+        tools:layout="@layout/fragment_operations">
+        <action
+            android:id="@+id/action_operationsFragment_to_resultFragment"
+            app:destination="@id/resultFragment">
+        <argument
+            android:name="operation_selected"
+            app:argType="string"
+            android:defaultValue='None' />
+        </action>
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.example.calculator.fragments.ResultFragment"
+        android:label="ResultFragment"
+        tools:layout="@layout/fragment_result">
+        <argument
+            android:name="operation_selected"
+            android:defaultValue="None"
+            app:argType="string" />
+    </fragment>
+
+
+</navigation>

@@ -13,9 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // setting a fragment in frame layout as soon as activity is launched
-        supportFragmentManager.beginTransaction().add(R.id.mainFragmentContainer, OperationsFragment()).commit()
-
+        // checking if activity has an extra fragment container, set isDualPaneActivity value to true
         val calculateFromInput = findViewById<FrameLayout>(R.id.calculateFromInput)
         isDualPaneActivity = calculateFromInput?.visibility == View.VISIBLE
 
