@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Calculator</string>
+
+    <string name="select_operation">Select Operation</string>
+
+    <string name="addition">Addition</string>
+
+    <string name="subtraction">Subtraction</string>
+
+    <string name="multiplication">Multiplicaion</string>
+
+    <string name="division">Division</string>
 </resources>
