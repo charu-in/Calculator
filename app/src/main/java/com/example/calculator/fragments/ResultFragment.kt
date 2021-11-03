@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
-import com.example.calculator.CalculatorOperations
-import com.example.calculator.OPERATION_NAME
 import com.example.calculator.R
+import com.example.calculator.ResultFragmentViewModel
 
 /**
  * Fragment to take two numbers as input from user and perform the specified operation
@@ -23,6 +23,8 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
     // initialize arguments to be received from OperationsFragment
     val args: ResultFragmentArgs by navArgs()
 
+    lateinit var resultFragmentViewModel: ResultFragmentViewModel
+
     // setting the view of ResultFragment
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +32,9 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_result, container, false)
+
+        // create member variable for ResultFragmentViewModel
+        resultFragmentViewModel = ViewModelProvider(this)[ResultFragmentViewModel::class.java]
 
         // set the text of button in accordance with value of OPERATION_NAME value from bundle
         view.findViewById<Button>(R.id.performCalculation).text =
@@ -42,7 +47,16 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
     // setting functionality of views
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initListeners(view)
+        subscribeObservers(view)
+    }
 
+    /**
+     * set the on-click functionality for performCalculation button
+     *
+     * @param view
+     */
+    private fun initListeners(view: View) {
         // fetch values from EditText and perform calculation on button click
         view.findViewById<Button>(R.id.performCalculation).setOnClickListener {
             val firstNumber = view.findViewById<EditText>(R.id.firstNumber).text.toString().toInt()
@@ -50,8 +64,7 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
                 view.findViewById<EditText>(R.id.secondNumber).text.toString().toInt()
 
             // set result on a TextView of this fragment
-            view.findViewById<TextView>(R.id.displayResult).text =
-                getCalculatedResult(
+            resultFragmentViewModel.getCalculatedResult(
                     args.operationSelected,
                     firstNumber,
                     secondNumber
@@ -60,33 +73,18 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
     }
 
     /**
-     *  function to calculate the final result based on operation selected
-     *  takes three arguments - operation, firstNumber, secondNumber
-     *  default values for two numbers given as zero
+     * subscribing the observers, the updated value will be reflected from ResultFragmentViewModel
+     * creating a channel between the observable(resultData) and the observer(ResultFragment)
+     *
+     * @param view
      */
-    private fun getCalculatedResult(
-        operation: String,
-        firstNumber: Int = 0,
-        secondNumber: Int = 0
-    ): String {
-
-        /**
-         * when block to perform the specified operation
-         * resultValue variable to store the result of chosen operation
-         */
-        val resultValue = when (operation) {
-            CalculatorOperations.ADDITION.operation -> firstNumber + secondNumber
-            CalculatorOperations.SUBTRACTION.operation -> firstNumber - secondNumber
-            CalculatorOperations.MULTIPLICATION.operation -> firstNumber * secondNumber
-            CalculatorOperations.DIVISION.operation -> try {   // exception handling for division by zero
-                firstNumber / secondNumber
-            } catch (e: ArithmeticException) {
-                return "Division is not possible"
+    private fun subscribeObservers(view: View) {
+        // viewLifecycleOwner takes into account the lifecycle owner of a viewModel
+        resultFragmentViewModel.resultData.observe(viewLifecycleOwner, { result ->
+            result?.let { validResult ->
+                // set the text on TextView even after fragment goes through lifecycle changes
+                view.findViewById<TextView>(R.id.displayResult).text = validResult
             }
-            else -> 0
-        }
-
-        // returning the result string that consists of operation name and calculated result
-        return "$operation is $resultValue"
+        })
     }
 }
