@@ -77,18 +77,29 @@ class OperationsFragment : Fragment(R.layout.fragment_operations), View.OnClickL
             else -> "None"
         }
 
-        // pass the operation name as an argument to the action on navigation to ResultFragment
-        val action = OperationsFragmentDirections.actionOperationsFragmentToResultFragment(operationSelected)
-        navController?.navigate(action)
+        if(!isDualPaneActivity) {
+            // pass the operation name as an argument to the action on navigation to ResultFragment
+            val action = OperationsFragmentDirections.actionOperationsFragmentToResultFragment(
+                operationSelected
+            )
+            navController?.navigate(action)
+        }
+        else {
+            viewForSelectedOperation(operationSelected)
+        }
     }
 
     /**
      * helper function to start next activity and modify content on the basis of selected operation
-     * startActivityForSelectedOperation function takes one arguments -  btnText
+     * viewForSelectedOperation function takes one arguments -  btnText
      */
-    private fun startActivityForSelectedOperation(
+    private fun viewForSelectedOperation(
         btnText: String
     ) {
+
+        if(!isDualPaneActivity){
+
+        }
         // initialise a bundle
         val bundle = Bundle()
 
@@ -104,10 +115,9 @@ class OperationsFragment : Fragment(R.layout.fragment_operations), View.OnClickL
         fragmentManager?.beginTransaction()?.apply {
             replace(
                 // check if dual panes are involved for tab view
-                if (isDualPaneActivity) R.id.calculateFromInput else R.id.mainFragmentContainer,
+                R.id.mainFragmentContainer,
                 fragment
             )      // view this fragment in the fragment container on the activity
-            if(!isDualPaneActivity) addToBackStack("operationsFragment")       // add fragment to back stack when back button is pressed on the device
             commit()
         }
     }
